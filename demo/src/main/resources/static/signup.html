@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Signup Page</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+          margin: 0;
+          font-family: Arial, sans-serif;
+          background-color: #f3f4f6;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+          padding: 1rem;
+        }
+        .signup-box {
+          background: #fff;
+          padding: 2rem;
+          border-radius: 1rem;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          width: 100%;
+          max-width: 450px;
+        }
+        h2 {
+          text-align: center;
+          color: #2f855a;
+          margin-bottom: 1.5rem;
+        }
+        .form-group {
+          margin-bottom: 1.2rem;
+        }
+        label {
+          display: block;
+          margin-bottom: 0.5rem;
+          color: #4a5568;
+        }
+        input {
+          width: 100%;
+          padding: 0.75rem;
+          padding-right: 2.5rem;
+          border: 1px solid #ccc;
+          border-radius: 0.5rem;
+          font-size: 1rem;
+          background-color: #f9fafb;
+        }
+        .phone-wrapper {
+          display: flex;
+          gap: 0.5rem;
+        }
+        .phone-wrapper input[type="text"] {
+          width: 60px;
+          text-align: center;
+          padding: 0.75rem;
+          font-weight: bold;
+          background-color: #edf2f7;
+          border: 1px solid #ccc;
+          border-radius: 0.5rem;
+        }
+        .password-wrapper {
+          position: relative;
+        }
+        .toggle-password {
+          position: absolute;
+          top: 50%;
+          right: 0.75rem;
+          transform: translateY(-50%);
+          cursor: pointer;
+          color: #718096;
+          width: 24px;
+          height: 24px;
+        }
+        .strength {
+          font-size: 0.85rem;
+          margin-top: 0.25rem;
+        }
+        .strength.weak { color: red; }
+        .strength.medium { color: orange; }
+        .strength.strong { color: green; }
+        button {
+          width: 100%;
+          padding: 0.75rem;
+          background-color: #38a169;
+          border: none;
+          border-radius: 0.5rem;
+          color: white;
+          font-size: 1rem;
+          font-weight: bold;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+        button:hover {
+          background-color: #2f855a;
+        }
+        @media (max-width: 480px) {
+          .signup-box {
+            padding: 1.5rem;
+          }
+        }
+    </style>
+</head>
+<body>
+<div class="signup-box">
+    <h2>Sign Up</h2>
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Enter your name">
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email">
+    </div>
+    <div class="form-group">
+        <label for="phone">Phone</label>
+        <div class="phone-wrapper">
+            <input type="text" value="+91" disabled>
+            <input type="tel" id="phone" placeholder="10-digit mobile number" pattern="[6-9]{1}[0-9]{9}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <div class="password-wrapper">
+            <input type="password" id="password" placeholder="Enter password">
+            <svg id="togglePassword" class="toggle-password" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path id="eyeIcon1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z
+               M2.458 12C3.732 7.943 7.523 5 12 5
+               c4.478 0 8.268 2.943 9.542 7
+               -1.274 4.057-5.064 7-9.542 7
+               -4.477 0-8.268-2.943-9.542-7z"/>
+            </svg>
+        </div>
+        <div id="strengthText" class="strength"></div>
+    </div>
+    <div class="form-group">
+        <label for="confirm-password">Confirm Password</label>
+        <div class="password-wrapper">
+            <input type="password" id="confirm-password" placeholder="Confirm password">
+            <svg id="toggleConfirmPassword" class="toggle-password" fill="none" stroke="currentColor"
+                 viewBox="0 0 24 24">
+                <path id="eyeIcon2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z
+               M2.458 12C3.732 7.943 7.523 5 12 5
+               c4.478 0 8.268 2.943 9.542 7
+               -1.274 4.057-5.064 7-9.542 7
+               -4.477 0-8.268-2.943-9.542-7z"/>
+            </svg>
+        </div>
+    </div>
+    <button>Sign Up</button>
+</div>
+
+<script>
+    function toggleVisibility(inputId, iconId, iconPaths) {
+      const input = document.getElementById(inputId);
+      const icon = document.getElementById(iconId);
+      const isVisible = input.type === 'text';
+      input.type = isVisible ? 'password' : 'text';
+      icon.setAttribute('d', isVisible ? iconPaths.eye : iconPaths.eyeOff);
+    }
+
+    const eyePaths = {
+      eye: "M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z",
+      eyeOff: "M13.875 18.825a10.05 10.05 0 01-1.875.175c-5.25 0-9.5-3.75-10.5-7.5a9.934 9.934 0 011.875-3.325m3.325-2.5a10.025 10.025 0 013.3-.65c5.25 0 9.5 3.75 10.5 7.5a9.933 9.933 0 01-1.875 3.325M15 12a3 3 0 11-6 0 3 3 0 016 0zm-6.5 6.5L3 21m18 0l-3.5-3.5M3 3l18 18"
+    };
+
+    document.getElementById('togglePassword').addEventListener('click', () => {
+      toggleVisibility('password', 'eyeIcon1', eyePaths);
+    });
+
+    document.getElementById('toggleConfirmPassword').addEventListener('click', () => {
+      toggleVisibility('confirm-password', 'eyeIcon2', eyePaths);
+    });
+
+    document.getElementById('password').addEventListener('input', function () {
+      const strengthText = document.getElementById('strengthText');
+      const val = this.value;
+      if (val.length < 6) {
+        strengthText.textContent = 'Weak';
+        strengthText.className = 'strength weak';
+      } else if (val.match(/[a-z]/) && val.match(/[A-Z]/) && val.match(/[0-9]/) && val.length >= 8) {
+        strengthText.textContent = 'Strong';
+        strengthText.className = 'strength strong';
+      } else {
+        strengthText.textContent = 'Medium';
+        strengthText.className = 'strength medium';
+      }
+    });
+</script>
+</body>
+</html>

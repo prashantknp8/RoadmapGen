@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login Page</title>
+    <style>
+        * {
+          box-sizing: border-box;
+        }
+
+        body {
+          margin: 0;
+          font-family: Arial, sans-serif;
+          background-color: #f3f4f6; /* light grey */
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+          padding: 1rem;
+        }
+
+        .login-box {
+          background: #ffffff;
+          padding: 2rem;
+          border-radius: 1rem;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          width: 100%;
+          max-width: 400px;
+        }
+
+        h2 {
+          text-align: center;
+          color: #2f855a; /* green */
+          margin-bottom: 1.5rem;
+          font-size: 1.8rem;
+        }
+
+        .form-group {
+          margin-bottom: 1.2rem;
+        }
+
+        label {
+          display: block;
+          margin-bottom: 0.5rem;
+          color: #4a5568;
+          font-size: 0.95rem;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+          width: 100%;
+          padding: 0.75rem;
+          padding-right: 2.5rem;
+          border: 1px solid #ccc;
+          border-radius: 0.5rem;
+          font-size: 1rem;
+          background-color: #f9fafb;
+        }
+
+        .password-wrapper {
+          position: relative;
+        }
+
+        .toggle-password {
+          position: absolute;
+          top: 50%;
+          right: 0.75rem;
+          transform: translateY(-50%);
+          cursor: pointer;
+          color: #718096;
+          width: 24px;
+          height: 24px;
+        }
+
+        button {
+          width: 100%;
+          padding: 0.75rem;
+          border: none;
+          border-radius: 0.5rem;
+          color: white;
+          font-size: 1rem;
+          font-weight: bold;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+
+        .login-button , .signup-button {
+          background-color: #38a169;
+          margin-bottom: 0.75rem;
+        }
+
+        .login-button:hover , .signup-button:hover {
+          background-color: #2f855a;
+        }
+
+
+
+        @media (max-width: 480px) {
+          .login-box {
+            padding: 1.5rem;
+          }
+
+          h2 {
+            font-size: 1.5rem;
+          }
+
+          input, button {
+            font-size: 0.95rem;
+          }
+        }
+    </style>
+</head>
+<body>
+<div class="login-box">
+    <h2>Login</h2>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email">
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <div class="password-wrapper">
+            <input type="password" id="password" placeholder="Enter your password">
+            <svg id="togglePassword" class="toggle-password" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path id="eyeIcon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z
+                   M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+            </svg>
+        </div>
+    </div>
+    <button class="login-button">Login</button>
+    <button class="signup-button" href="signup.html">Sign Up</button>
+</div>
+
+<script>
+    const toggle = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+    const eyeIcon = document.getElementById('eyeIcon');
+
+    const eye = "M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z";
+    const eyeOff = "M13.875 18.825a10.05 10.05 0 01-1.875.175c-5.25 0-9.5-3.75-10.5-7.5a9.934 9.934 0 011.875-3.325m3.325-2.5a10.025 10.025 0 013.3-.65c5.25 0 9.5 3.75 10.5 7.5a9.933 9.933 0 01-1.875 3.325M15 12a3 3 0 11-6 0 3 3 0 016 0zm-6.5 6.5L3 21m18 0l-3.5-3.5M3 3l18 18";
+
+    let visible = false;
+
+    toggle.addEventListener('click', () => {
+      visible = !visible;
+      passwordInput.type = visible ? 'text' : 'password';
+      eyeIcon.setAttribute('d', visible ? eyeOff : eye);
+    });
+</script>
+</body>
+</html>

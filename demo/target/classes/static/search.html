@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Roadmap Generator</title>
+    <style>
+        body {
+          font-family: 'Segoe UI', sans-serif;
+          margin: 0;
+          padding: 0;
+          background: #f3f4f6;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+        }
+
+        .container {
+          background: #ffffff;
+          padding: 2rem;
+          border-radius: 1rem;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+          max-width: 600px;
+          width: 100%;
+        }
+
+        h1 {
+          text-align: center;
+          margin-bottom: 1.5rem;
+          font-size: 1.8rem;
+          color: #1f2937;
+        }
+
+        .search-bar {
+          display: flex;
+          gap: 0.5rem;
+          margin-bottom: 1.5rem;
+        }
+
+        input[type="text"] {
+          flex: 1;
+          padding: 0.75rem 1rem;
+          border: 1px solid #d1d5db;
+          border-radius: 0.5rem;
+          font-size: 1rem;
+          background-color: #f9fafb;
+          transition: border 0.2s ease;
+        }
+
+        input[type="text"]:focus {
+          outline: none;
+          border-color: #10b981;
+          background-color: #ffffff;
+        }
+
+        button {
+          padding: 0.75rem 1.25rem;
+          background-color: #10b981;
+          color: white;
+          border: none;
+          border-radius: 0.5rem;
+          font-size: 1rem;
+          font-weight: 500;
+          cursor: pointer;
+          transition: background-color 0.2s ease;
+        }
+
+        button:hover {
+          background-color: #059669;
+        }
+
+        .result-title {
+          text-align: center;
+          color: #065f46;
+          margin-bottom: 1rem;
+          font-weight: 600;
+        }
+
+        .steps {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .step-card {
+          background-color: #ecfdf5;
+          border-left: 4px solid #10b981;
+          padding: 1rem;
+          border-radius: 0.5rem;
+          color: #065f46;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+        }
+
+        .step-number {
+          font-weight: bold;
+          color: #047857;
+          margin-bottom: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Roadmap Generator</h1>
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Enter a topic (e.g., Web Development)"/>
+        <button onclick="generateRoadmap()">Search</button>
+    </div>
+    <div id="resultArea" style="display: none;">
+        <div class="result-title" id="resultTitle"></div>
+        <div class="steps" id="stepsContainer"></div>
+    </div>
+</div>
+
+<script>
+    function generateRoadmap() {
+      const query = document.getElementById('searchInput').value.trim();
+      const resultTitle = document.getElementById('resultTitle');
+      const stepsContainer = document.getElementById('stepsContainer');
+      const resultArea = document.getElementById('resultArea');
+
+      stepsContainer.innerHTML = '';
+      if (!query) {
+        resultTitle.textContent = "⚠️ Please enter a topic to generate a roadmap.";
+        resultArea.style.display = "block";
+        return;
+      }
+
+      resultTitle.textContent = `📅 Day-wise roadmap for: ${query}`;
+      resultArea.style.display = "block";
+
+      // Sample roadmaps for known topics
+      const roadmaps = {
+        "web development": [
+          "Learn HTML basics",
+          "Practice HTML & CSS layout",
+          "Learn JavaScript fundamentals",
+          "DOM manipulation with JS",
+          "Build a responsive website",
+          "Learn Git & GitHub basics",
+          "Deploy a website using Netlify or Vercel"
+        ],
+        "data science": [
+          "Install Python & Jupyter Notebook",
+          "Learn NumPy and data arrays",
+          "Explore Pandas for dataframes",
+          "Data visualization with Matplotlib",
+          "Intro to Machine Learning",
+          "Build a simple ML model",
+          "Present findings in a report/dashboard"
+        ]
+      };
+
+      const topic = query.toLowerCase();
+      const steps = roadmaps[topic] || [
+        `Day 1: Research the fundamentals of ${query}`,
+        "Day 2: Explore tools and technologies used in the field",
+        "Day 3: Gather learning resources (courses, videos)",
+        "Day 4: Learn basic concepts",
+        "Day 5: Build a mini project",
+        "Day 6: Review and refine understanding",
+        "Day 7: Share or present what you’ve learned"
+      ];
+
+      steps.forEach((step, i) => {
+        const card = document.createElement('div');
+        card.className = 'step-card';
+        card.innerHTML = `
+          <div class="step-number">Day ${i + 1}</div>
+          <div>${step.replace(/^Day \\d+:\\s*/, '')}</div>
+        `;
+        stepsContainer.appendChild(card);
+      });
+    }
+</script>
+</body>
+</html>
